@@ -51,6 +51,27 @@ nav button.on{color:var(--pr)}nav svg{width:24px;height:24px;fill:none;stroke:cu
 .splash button{background:#fff;color:#1B1640}
 .toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:12px;text-align:center;z-index:5}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+nav[hidden]{display:none}
+h2{font-size:26px}
+.sq{border-radius:14px}
+.card{box-shadow:0 1px 2px rgba(27,22,64,.05);transition:transform .15s,box-shadow .15s}
+.job:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(91,69,245,.16)}
+.hero{background:linear-gradient(135deg,#2A1B78,#5B45F5);box-shadow:0 14px 34px rgba(91,69,245,.3)}
+.hero h2{font-size:24px}
+button{transition:filter .15s}button:hover{filter:brightness(1.08)}
+.card input[type=file]{margin-top:10px;padding:10px}
+@media (min-width:900px){
+main{max-width:1180px;margin:0 auto;padding:32px 40px 40px 260px}
+nav{top:0;bottom:0;right:auto;width:220px;flex-direction:column;justify-content:flex-start;padding:96px 14px 14px;border-top:0;border-right:1px solid var(--ln)}
+nav::before{content:"vagaz";position:absolute;top:26px;left:28px;font:800 30px "Bricolage Grotesque",system-ui,sans-serif;color:var(--pr);letter-spacing:-.5px}
+nav button{flex-direction:row;justify-content:flex-start;gap:12px;font-size:15px;padding:13px 16px;border-radius:12px;margin-bottom:4px}
+nav button.on{background:color-mix(in srgb,var(--pr) 13%,transparent)}
+.top .logo{visibility:hidden}
+#lst{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}#lst .card{margin:0}
+.hero{padding:28px}.hero h2{font-size:30px}
+.toast{left:auto;right:32px;bottom:32px;max-width:360px}
+.splash{padding:64px 12vw}.splash .logo{font-size:96px}.splash p{font-size:22px;max-width:520px}.splash button{max-width:360px}
+}
 </style>
 </head>
 <body>
@@ -93,7 +114,7 @@ var top='<div class="top"><span class="logo">vagaz</span><span class="av">'+esc(
 if(t==="home"){var b=sorted()[0],na=Object.keys(S.apps).length;a.innerHTML=top+'<div class="hero"><div class="mut">Seu melhor match hoje</div><div class="row"><div class="grow"><h2>'+esc(b.t)+'</h2><div class="mut">'+esc(b.c)+', '+esc(b.l)+'</div></div>'+ring(mt(b),76)+'</div><button style="background:#fff;color:#1B1640" onclick="openJob('+b.id+')">Ver vaga</button></div><div class="stats"><div><b>'+J.length+'</b><span class="mut">vagas</span></div><div><b>'+na+'</b><span class="mut">candidaturas</span></div><div><b>'+pct()+'%</b><span class="mut">do perfil</span></div></div><h3 style="margin-bottom:10px">Mais compatíveis</h3>'+sorted().slice(0,3).map(card).join("")+'<button class="sec" onclick="go(\'vagas\')">Ver todas as vagas</button>';return}
 if(t==="vagas"){a.innerHTML=top+'<h2>Vagas</h2><input aria-label="Buscar vagas" placeholder="Cargo, empresa ou cidade" value="'+esc(S.q)+'" oninput="S.q=this.value;upd()" style="margin-top:12px"><div class="chips">'+[["todas","Todas"],["direta","Candidatura direta"],["remoto","Remoto"]].map(function(x){return '<button class="chip '+(S.f===x[0]?"on":"")+'" onclick="filt(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div><div id="lst">'+list()+'</div>';return}
 if(t==="apps"){var ids=Object.keys(S.apps);a.innerHTML=top+'<h2>Candidaturas</h2><div style="height:12px"></div>'+(ids.length?ids.map(function(i){var j=J.filter(function(x){return x.id==i})[0],e=S.apps[i]==="enviada";return '<div class="card job row" onclick="openJob('+j.id+')">'+sq(j)+'<div class="grow"><h3>'+esc(j.t)+'</h3><div class="mut">'+esc(j.c)+'</div></div><span class="badge '+(e?"b1":"b2")+'">'+(e?"Enviada":"Pronta para enviar")+'</span></div>'}).join(""):'<div class="card"><h3>Nenhuma candidatura ainda</h3><p class="mut">Abra uma vaga, adapte o currículo e candidate-se. O andamento aparece aqui.</p><button onclick="go(\'vagas\')">Buscar vagas</button></div>');return}
-if(t==="perfil"){a.innerHTML=top+'<h2>Seu perfil</h2><div class="bar" role="img" aria-label="Perfil '+pct()+'% completo"><i style="width:'+pct()+'%"></i></div><span class="mut">'+pct()+'% completo</span><label for="f1">Nome</label><input id="f1" value="'+esc(P.nome)+'" placeholder="Seu nome"><label for="f2">Cargo desejado</label><input id="f2" value="'+esc(P.cargo)+'"><label for="f3">Anos de experiência</label><input id="f3" value="'+esc(P.anos)+'" inputmode="numeric"><label for="f4">Cidade</label><input id="f4" value="'+esc(P.cidade)+'"><label for="f5">Competências, separadas por vírgula</label><input id="f5" value="'+esc(P.skills.join(", "))+'"><label for="f6">Currículo, experiência</label><textarea id="f6">'+esc(P.cv)+'</textarea><button onclick="saveP()">Salvar perfil</button><button class="sec" onclick="logout()">Sair</button>';return}
+if(t==="perfil"){a.innerHTML=top+'<h2>Seu perfil</h2><div class="card" style="margin-top:12px"><b>Importar currículo</b><p class="mut" style="margin:4px 0 0">Envie um PDF, Word ou TXT e o Vagaz preenche o perfil. O arquivo é lido no seu aparelho e não é enviado a ninguém.</p><input id="up" type="file" accept=".pdf,.docx,.txt" onchange="importCV(this.files[0])" aria-label="Enviar currículo"></div><div class="bar" role="img" aria-label="Perfil '+pct()+'% completo"><i style="width:'+pct()+'%"></i></div><span class="mut">'+pct()+'% completo</span><label for="f1">Nome</label><input id="f1" value="'+esc(P.nome)+'" placeholder="Seu nome"><label for="f2">Cargo desejado</label><input id="f2" value="'+esc(P.cargo)+'"><label for="f3">Anos de experiência</label><input id="f3" value="'+esc(P.anos)+'" inputmode="numeric"><label for="f4">Cidade</label><input id="f4" value="'+esc(P.cidade)+'"><label for="f5">Competências, separadas por vírgula</label><input id="f5" value="'+esc(P.skills.join(", "))+'"><label for="f6">Currículo, experiência</label><textarea id="f6">'+esc(P.cv)+'</textarea><button onclick="saveP()">Salvar perfil</button><button class="sec" onclick="logout()">Sair</button>';return}
 var j=J.filter(function(x){return x.id===S.job})[0],m=mt(j),st=S.apps[j.id];
 var tags=j.k.map(function(s){var h=P.skills.indexOf(s)>-1;return '<span class="tag '+(h?"y":"n")+'">'+(h?"Você tem: ":"Falta: ")+esc(s)+'</span>'}).join("");
 var h='<button class="back" onclick="go(\'vagas\')">Voltar</button><div class="row" style="margin-bottom:12px">'+sq(j)+'<div class="grow"><h2>'+esc(j.t)+'</h2><div class="mut">'+esc(j.c)+'</div></div></div><div class="hero row"><div class="grow"><b>Match com seu perfil</b><div class="mut">'+esc(j.l)+', '+j.m.toLowerCase()+'</div><div class="mut">'+esc(j.s)+'</div></div>'+ring(m,84)+'</div><div class="card"><p style="margin-top:0">'+esc(j.x)+'</p>'+tags+'</div>';
@@ -139,6 +160,24 @@ return e1||e2}
 async function saveP(){P.nome=$("f1").value;P.cargo=$("f2").value;P.anos=$("f3").value;P.cidade=$("f4").value;P.skills=$("f5").value.split(",").map(function(s){return s.trim()}).filter(Boolean);P.cv=$("f6").value;
 var er=await saveRemote();toast(er?"Erro ao salvar: "+er.message:"Perfil salvo");go("home")}
 if(sb){sb.auth.getSession().then(function(r){if(r.data.session&&!U)boot(r.data.session)});sb.auth.onAuthStateChange(function(ev,s){if(ev==="SIGNED_IN"&&s&&!U)boot(s)})}
+/* ===== Importar currículo: lê o arquivo no navegador e preenche o perfil ===== */
+var SK=["WMS","TMS","SAP","ERP","Excel","Power BI","KPI","Roteirização","Gestão de estoque","Transporte rodoviário","Liderança de equipes","Importação","Exportação","Despacho aduaneiro","Planejamento de demanda","Segurança do trabalho","Inglês","Espanhol","Lean","Six Sigma","Supply chain","Armazenagem","Cross docking","Last mile","Negociação","Compras","Gestão de pessoas","Orçamento"];
+function loadJS(u){return new Promise(function(ok,no){var s=document.createElement("script");s.src=u;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+async function readCV(f){var n=f.name.toLowerCase();
+if(n.endsWith(".txt"))return await f.text();
+if(n.endsWith(".docx")){await loadJS("https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js");return (await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()})).value}
+if(n.endsWith(".pdf")){await loadJS("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+var d=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise,t="";
+for(var i=1;i<=d.numPages;i++){var c=await(await d.getPage(i)).getTextContent();t+=c.items.map(function(x){return x.str+(x.hasEOL?"\n":" ")}).join("")+"\n"}return t}
+throw new Error("formato")}
+function parseCV(t){var L=t.split(/\n+/).map(function(s){return s.trim()}).filter(Boolean),low=norm(t);
+var m=t.match(/(\d{1,2})\s*\+?\s*anos/i);
+var cg=L.filter(function(s){return s.length<70&&/gerente|coordenador|supervisor|analista|diretor|assistente|planejador|lider|líder|engenheiro|tecnico|técnico/i.test(s)})[0]||"";
+return{nome:(L[0]&&L[0].length<50&&!/@|\d/.test(L[0]))?L[0]:"",cargo:cg,anos:m?m[1]:"",skills:SK.filter(function(s){return low.indexOf(norm(s))>-1}),cv:t.replace(/[ \t]+/g," ").trim().slice(0,4000)}}
+async function importCV(f){if(!f)return;toast("Lendo o currículo...");
+try{var t=await readCV(f);if(t.trim().length<30){toast("Não consegui ler texto neste arquivo");return}
+var d=parseCV(t);if(d.nome)P.nome=d.nome;if(d.cargo)P.cargo=d.cargo;if(d.anos)P.anos=d.anos;if(d.skills.length)P.skills=d.skills;P.cv=d.cv;render();toast("Currículo importado. Confira os campos e salve.")}
+catch(e){toast("Não foi possível ler este arquivo")}}
 render();
 </script>
 </body>
