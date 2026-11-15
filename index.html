@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vagaz</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;500;600&display=swap">
 <style>
 :root{--bg:#F5F4FB;--sf:#fff;--ink:#1B1640;--mut:#625E80;--ln:#E3E0F2;--pr:#5B45F5;--on:#fff;--ok:#12805A;--wr:#A15C00;--sp:#1B1640;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -86,13 +87,13 @@ function upd(){$("lst").innerHTML=list()}
 function filt(f){S.f=f;render()}
 function apply(id,st){S.apps[id]=st;render()}
 function render(){var a=$("app"),t=S.tab,n=$("nav");
-if(t==="splash"){n.hidden=true;a.innerHTML='<div class="splash"><div class="logo">vagaz</div><p>A vaga certa, com o currículo certo, em um toque.</p><button onclick="go(\'perfil\')">Entrar com Google</button></div>';return}
+if(t==="splash"){n.hidden=true;a.innerHTML='<div class="splash"><div class="logo">vagaz</div><p>A vaga certa, com o currículo certo, em um toque.</p><button onclick="login()">Entrar com Google</button></div>';return}
 n.hidden=false;var cur=t==="job"?"vagas":t;n.innerHTML=[["home","Início"],["vagas","Buscar"],["apps","Candidaturas"],["perfil","Perfil"]].map(function(x){return '<button class="'+(cur===x[0]?"on":"")+'" onclick="go(\''+x[0]+'\')" aria-label="'+x[1]+'"><svg viewBox="0 0 24 24"><path d="'+IC[x[0]]+'"/></svg>'+x[1]+'</button>'}).join("");
 var top='<div class="top"><span class="logo">vagaz</span><span class="av">'+esc((P.nome||"V")[0].toUpperCase())+'</span></div>';
 if(t==="home"){var b=sorted()[0],na=Object.keys(S.apps).length;a.innerHTML=top+'<div class="hero"><div class="mut">Seu melhor match hoje</div><div class="row"><div class="grow"><h2>'+esc(b.t)+'</h2><div class="mut">'+esc(b.c)+', '+esc(b.l)+'</div></div>'+ring(mt(b),76)+'</div><button style="background:#fff;color:#1B1640" onclick="openJob('+b.id+')">Ver vaga</button></div><div class="stats"><div><b>'+J.length+'</b><span class="mut">vagas</span></div><div><b>'+na+'</b><span class="mut">candidaturas</span></div><div><b>'+pct()+'%</b><span class="mut">do perfil</span></div></div><h3 style="margin-bottom:10px">Mais compatíveis</h3>'+sorted().slice(0,3).map(card).join("")+'<button class="sec" onclick="go(\'vagas\')">Ver todas as vagas</button>';return}
 if(t==="vagas"){a.innerHTML=top+'<h2>Vagas</h2><input aria-label="Buscar vagas" placeholder="Cargo, empresa ou cidade" value="'+esc(S.q)+'" oninput="S.q=this.value;upd()" style="margin-top:12px"><div class="chips">'+[["todas","Todas"],["direta","Candidatura direta"],["remoto","Remoto"]].map(function(x){return '<button class="chip '+(S.f===x[0]?"on":"")+'" onclick="filt(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div><div id="lst">'+list()+'</div>';return}
 if(t==="apps"){var ids=Object.keys(S.apps);a.innerHTML=top+'<h2>Candidaturas</h2><div style="height:12px"></div>'+(ids.length?ids.map(function(i){var j=J.filter(function(x){return x.id==i})[0],e=S.apps[i]==="enviada";return '<div class="card job row" onclick="openJob('+j.id+')">'+sq(j)+'<div class="grow"><h3>'+esc(j.t)+'</h3><div class="mut">'+esc(j.c)+'</div></div><span class="badge '+(e?"b1":"b2")+'">'+(e?"Enviada":"Pronta para enviar")+'</span></div>'}).join(""):'<div class="card"><h3>Nenhuma candidatura ainda</h3><p class="mut">Abra uma vaga, adapte o currículo e candidate-se. O andamento aparece aqui.</p><button onclick="go(\'vagas\')">Buscar vagas</button></div>');return}
-if(t==="perfil"){a.innerHTML=top+'<h2>Seu perfil</h2><div class="bar" role="img" aria-label="Perfil '+pct()+'% completo"><i style="width:'+pct()+'%"></i></div><span class="mut">'+pct()+'% completo</span><label for="f1">Nome</label><input id="f1" value="'+esc(P.nome)+'" placeholder="Seu nome"><label for="f2">Cargo desejado</label><input id="f2" value="'+esc(P.cargo)+'"><label for="f3">Anos de experiência</label><input id="f3" value="'+esc(P.anos)+'" inputmode="numeric"><label for="f4">Cidade</label><input id="f4" value="'+esc(P.cidade)+'"><label for="f5">Competências, separadas por vírgula</label><input id="f5" value="'+esc(P.skills.join(", "))+'"><label for="f6">Currículo, experiência</label><textarea id="f6">'+esc(P.cv)+'</textarea><button onclick="saveP()">Salvar perfil</button>';return}
+if(t==="perfil"){a.innerHTML=top+'<h2>Seu perfil</h2><div class="bar" role="img" aria-label="Perfil '+pct()+'% completo"><i style="width:'+pct()+'%"></i></div><span class="mut">'+pct()+'% completo</span><label for="f1">Nome</label><input id="f1" value="'+esc(P.nome)+'" placeholder="Seu nome"><label for="f2">Cargo desejado</label><input id="f2" value="'+esc(P.cargo)+'"><label for="f3">Anos de experiência</label><input id="f3" value="'+esc(P.anos)+'" inputmode="numeric"><label for="f4">Cidade</label><input id="f4" value="'+esc(P.cidade)+'"><label for="f5">Competências, separadas por vírgula</label><input id="f5" value="'+esc(P.skills.join(", "))+'"><label for="f6">Currículo, experiência</label><textarea id="f6">'+esc(P.cv)+'</textarea><button onclick="saveP()">Salvar perfil</button><button class="sec" onclick="logout()">Sair</button>';return}
 var j=J.filter(function(x){return x.id===S.job})[0],m=mt(j),st=S.apps[j.id];
 var tags=j.k.map(function(s){var h=P.skills.indexOf(s)>-1;return '<span class="tag '+(h?"y":"n")+'">'+(h?"Você tem: ":"Falta: ")+esc(s)+'</span>'}).join("");
 var h='<button class="back" onclick="go(\'vagas\')">Voltar</button><div class="row" style="margin-bottom:12px">'+sq(j)+'<div class="grow"><h2>'+esc(j.t)+'</h2><div class="mut">'+esc(j.c)+'</div></div></div><div class="hero row"><div class="grow"><b>Match com seu perfil</b><div class="mut">'+esc(j.l)+', '+j.m.toLowerCase()+'</div><div class="mut">'+esc(j.s)+'</div></div>'+ring(m,84)+'</div><div class="card"><p style="margin-top:0">'+esc(j.x)+'</p>'+tags+'</div>';
@@ -117,6 +118,27 @@ if(S.busy){a.innerHTML=top+'<h2>Buscando vagas</h2><p class="mut">Consultando Li
 if(S.res){var L=res(),fs={};L.forEach(function(j){fs[G[j.id].s]=1});a.innerHTML=top+'<h2>'+L.length+' vagas encontradas</h2><p class="mut">'+Object.keys(fs).length+' fontes'+(S.fc?', perto de '+esc(S.fc)+(S.fr>0?', raio de '+S.fr+' km':''):'')+(S.fe?', em '+esc(S.fe):'')+'</p><button class="sec" onclick="S.res=false;render()">Alterar filtros</button><div style="height:12px"></div>'+(L.length?L.map(card).join(""):'<p class="mut">Nenhuma vaga nesse raio. Aumente o raio ou mude os filtros.</p>');return}
 var cs={};J.forEach(function(j){if(G[j.id].la)cs[j.l]=1});
 a.innerHTML=top+'<h2>Buscar vagas</h2><p class="mut">Escolha onde você quer trabalhar. Não precisa digitar o nome da vaga.</p><label for="g1">Cidade</label><input id="g1" list="cid" value="'+esc(S.fc)+'" placeholder="Ex.: Lisboa" oninput="S.fc=this.value"><datalist id="cid">'+Object.keys(cs).map(function(c){return '<option value="'+esc(c)+'">'}).join("")+'</datalist><label for="g2">Estado ou distrito</label><input id="g2" value="'+esc(S.fe)+'" placeholder="Ex.: SP ou Porto" oninput="S.fe=this.value"><label for="g3">Raio a partir da cidade</label><select id="g3" onchange="S.fr=+this.value">'+[[0,"Só esta cidade"],[10,"10 km"],[25,"25 km"],[50,"50 km"],[100,"100 km"],[200,"200 km"]].map(function(o){return '<option value="'+o[0]+'"'+(S.fr===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join("")+'</select><label>Modalidade</label><div class="chips">'+["Todas","Presencial","Híbrido","Remoto"].map(function(m){return '<button class="chip '+(S.fm===m?"on":"")+'" onclick="setM(\''+m+'\')">'+m+'</button>'}).join("")+'</div><button onclick="doSearch()">Buscar vagas</button><p class="mut">Pesquisa em LinkedIn, Indeed, Randstad, OLX e outras fontes ao mesmo tempo.</p>'};
+/* ===== SUPABASE: cole aqui a URL e a chave pública (publishable/anon) do seu projeto ===== */
+var SUPABASE_URL="COLE_AQUI_A_URL_DO_PROJETO",SUPABASE_KEY="COLE_AQUI_A_CHAVE_PUBLICA";
+var sb=null,U=null;
+try{sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}catch(e){sb=null}
+function login(){if(!sb){toast("Modo demonstração: falta configurar o Supabase");go("perfil");return}sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}})}
+async function logout(){if(sb)await sb.auth.signOut();U=null;S.tab="splash";render()}
+async function boot(sess){U=sess.user;P.nome=(U.user_metadata&&U.user_metadata.full_name)||"";P.cargo="";P.anos="";P.cidade="";P.skills=[];P.cv="";
+var r=await sb.from("perfis").select("*").eq("id",U.id).maybeSingle();
+if(r.data){var d=r.data;P.nome=d.nome||P.nome;P.cargo=d.cargo_desejado||"";P.anos=d.anos_experiencia?String(d.anos_experiencia):"";P.cidade=d.cidade||"";P.skills=d.competencias||[]}
+var c=await sb.from("curriculos").select("conteudo").eq("perfil_id",U.id).order("criado_em",{ascending:false}).limit(1);
+if(c.data&&c.data[0])P.cv=c.data[0].conteudo;
+S.tab=(P.cargo||P.skills.length)?"home":"perfil";render()}
+async function saveRemote(){if(!sb||!U)return null;
+var e1=(await sb.from("perfis").upsert({id:U.id,nome:P.nome,cargo_desejado:P.cargo,anos_experiencia:parseInt(P.anos)||null,cidade:P.cidade,competencias:P.skills})).error;
+var r=await sb.from("curriculos").select("id").eq("perfil_id",U.id).order("criado_em",{ascending:false}).limit(1);
+var id=r.data&&r.data[0]&&r.data[0].id;
+var e2=(id?await sb.from("curriculos").update({conteudo:P.cv}).eq("id",id):await sb.from("curriculos").insert({perfil_id:U.id,conteudo:P.cv})).error;
+return e1||e2}
+async function saveP(){P.nome=$("f1").value;P.cargo=$("f2").value;P.anos=$("f3").value;P.cidade=$("f4").value;P.skills=$("f5").value.split(",").map(function(s){return s.trim()}).filter(Boolean);P.cv=$("f6").value;
+var er=await saveRemote();toast(er?"Erro ao salvar: "+er.message:"Perfil salvo");go("home")}
+if(sb){sb.auth.getSession().then(function(r){if(r.data.session&&!U)boot(r.data.session)});sb.auth.onAuthStateChange(function(ev,s){if(ev==="SIGNED_IN"&&s&&!U)boot(s)})}
 render();
 </script>
 </body>
