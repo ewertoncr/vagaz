@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vagaz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#F5F4FB;--sf:#fff;--ink:#1B1640;--mut:#625E80;--ln:#E3E0F2;--pr:#5B45F5;--on:#fff;--ok:#12805A;--wr:#A15C00;--sp:#1B1640;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#110E26;--sf:#1B1740;--ink:#EEEBFF;--mut:#A9A4CC;--ln:#2D2859;--pr:#8E7DFF;--on:#14102E;--ok:#4CC38A;--wr:#E8AE55;--sp:#0C0A1C;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#110E26;--sf:#1B1740;--ink:#EEEBFF;--mut:#A9A4CC;--ln:#2D2859;--pr:#8E7DFF;--on:#14102E;--ok:#4CC38A;--wr:#E8AE55;--sp:#0C0A1C;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Public Sans",system-ui,sans-serif}
+h1,h2,h3,.logo{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;margin:0;line-height:1.15}
+main{max-width:480px;margin:0 auto;padding:16px 16px 104px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.logo{font-weight:800;font-size:26px;color:var(--pr);letter-spacing:-.5px}
+.av{width:38px;height:38px;border-radius:50%;background:var(--pr);color:var(--on);display:grid;place-items:center;font-weight:600}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px;margin:0 0 10px}
+.row{display:flex;gap:12px;align-items:center}.grow{flex:1;min-width:0}
+.job{cursor:pointer}.job h3{font-size:17px}
+.mut{color:var(--mut);font-size:14px}
+.sq{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;font-family:"Bricolage Grotesque",system-ui,sans-serif;flex:none}
+.hero{background:var(--sp);color:#fff;border-radius:22px;padding:20px;margin-bottom:14px}
+.hero .mut{color:#C9C3F5}.hero h2{font-size:22px;margin:4px 0}
+.stats{display:flex;gap:10px;margin-bottom:16px}.stats div{flex:1;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:12px}
+.stats b{display:block;font:800 24px "Bricolage Grotesque",system-ui,sans-serif}
+.tag{display:inline-block;border:1px solid var(--ln);border-radius:8px;padding:2px 8px;margin:2px 4px 2px 0;font-size:13px}
+.tag.y{border-color:var(--ok);color:var(--ok)}.tag.n{border-color:var(--wr);color:var(--wr)}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:10px 0 14px;padding-bottom:2px}
+.chip{width:auto;margin:0;white-space:nowrap;background:var(--sf);color:var(--ink);border:1px solid var(--ln);padding:8px 14px;border-radius:999px;font-weight:500}
+.chip.on{background:var(--pr);color:var(--on);border-color:var(--pr)}
+button{font:inherit;font-weight:600;border:0;border-radius:14px;padding:15px;background:var(--pr);color:var(--on);width:100%;cursor:pointer;margin-top:8px}
+button.sec{background:transparent;color:var(--pr);border:1.5px solid var(--pr)}
+.back{width:auto;background:none;color:var(--pr);padding:4px 0;margin:0 0 10px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 4px}
+input,textarea,select{font:inherit;width:100%;padding:13px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);color:var(--ink)}
+textarea{min-height:160px;resize:vertical}
+button:focus-visible,input:focus-visible,textarea:focus-visible,.job:focus-visible{outline:3px solid var(--pr);outline-offset:2px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--sf);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{margin:0;border-radius:0;background:none;color:var(--mut);padding:10px 4px 8px;font-size:12px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button.on{color:var(--pr)}nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.badge{font-size:12px;font-weight:600;border-radius:8px;padding:3px 8px}
+.b1{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}.b2{background:color-mix(in srgb,var(--wr) 16%,transparent);color:var(--wr)}
+.box{border:1.5px solid var(--ok);border-radius:14px;padding:12px;margin-top:10px}
+.bar{height:8px;border-radius:8px;background:var(--ln);overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:var(--pr)}
+.splash{position:fixed;inset:0;background:#1B1640;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:32px 24px calc(32px + env(safe-area-inset-bottom,0px))}
+.splash .logo{font-size:64px;color:#fff}.splash p{color:#C9C3F5;font-size:18px;margin:8px 0 28px}
+.splash button{background:#fff;color:#1B1640}
+.toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:12px;text-align:center;z-index:5}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav id="nav" hidden></nav>
+<script>
+var P={nome:"",cargo:"Gerente de logística",anos:"20",cidade:"",skills:["WMS","Gestão de estoque","Transporte rodoviário","Roteirização","KPI","Liderança de equipes","Importação","Excel"],cv:"Gestão de operações de armazenagem e transporte, redução de custos logísticos, melhoria de indicadores de nível de serviço e liderança de equipes operacionais."};
+var J=[
+{id:1,t:"Gerente de logística",c:"Atlas Distribuição",l:"Lisboa",m:"Presencial",s:"€3.200 por mês",d:1,k:["WMS","Gestão de estoque","Liderança de equipes","KPI","Transporte rodoviário"],x:"Responsável por armazém e distribuição, metas de nível de serviço e gestão da equipe."},
+{id:2,t:"Coordenador de transportes",c:"Rota Norte",l:"São Paulo",m:"Híbrido",s:"R$ 9.500 por mês",d:0,k:["Roteirização","Transporte rodoviário","TMS","Liderança de equipes"],x:"Planejamento de rotas, gestão de transportadoras e controle de custo por entrega."},
+{id:3,t:"Analista de comércio exterior",c:"Porto Azul",l:"Lisboa",m:"Híbrido",s:"€2.400 por mês",d:0,k:["Importação","Excel","Despacho aduaneiro","Inglês"],x:"Acompanhamento de embarques, documentação de importação e relação com despachantes."},
+{id:4,t:"Supervisor de armazém",c:"Nova Cadeia",l:"Porto",m:"Presencial",s:"€2.100 por mês",d:1,k:["WMS","Gestão de estoque","Segurança do trabalho","Liderança de equipes"],x:"Coordenação do turno, inventário cíclico e cumprimento das normas de segurança."},
+{id:5,t:"Planejador de supply chain",c:"Orbita Retail",l:"Remoto",m:"Remoto",s:"€2.800 por mês",d:1,k:["Excel","KPI","Planejamento de demanda","SAP"],x:"Previsão de demanda, reposição de estoque e análise de indicadores semanais."},
+{id:6,t:"Gerente de operações logísticas",c:"Vento Sul",l:"Setúbal",m:"Presencial",s:"€3.600 por mês",d:0,k:["WMS","KPI","Liderança de equipes","Importação","Roteirização"],x:"Direção de operação 24 horas, contratos com clientes e redução de custos."},
+{id:7,t:"Analista de transportes",c:"Linha Verde",l:"Remoto",m:"Remoto",s:"€2.300 por mês",d:1,k:["Transporte rodoviário","Roteirização","Excel","TMS"],x:"Cotação de fretes, acompanhamento de entregas e relatórios de desempenho."}];
+var S={tab:"splash",job:null,cv:null,apps:{},q:"",f:"todas"};
+var COL=["#5B45F5","#D6336C","#0C8599","#E8590C","#2B8A3E","#7048E8","#C2255C"];
+var IC={home:"M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10",vagas:"M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.3-4.3",apps:"M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h9",perfil:"M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"};
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function mt(j){var h=j.k.filter(function(s){return P.skills.indexOf(s)>-1}).length,m=Math.round(90*h/j.k.length);P.cargo.toLowerCase().split(" ").forEach(function(w){if(w.length>3&&j.t.toLowerCase().indexOf(w)>-1)m+=4});return Math.min(m,98)}
+function ring(m,z){var r=z/2-6,C=2*Math.PI*r,c=m>=70?"#3DDC97":m>=40?"#FFB347":"#B7B3D9";return '<svg width="'+z+'" height="'+z+'" viewBox="0 0 '+z+' '+z+'" role="img" aria-label="Match de '+m+'%"><circle cx="'+z/2+'" cy="'+z/2+'" r="'+r+'" fill="none" stroke="rgba(150,140,220,.3)" stroke-width="6"/><circle cx="'+z/2+'" cy="'+z/2+'" r="'+r+'" fill="none" stroke="'+c+'" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C*(1-m/100)+'" transform="rotate(-90 '+z/2+' '+z/2+')"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" fill="currentColor" font-family="Bricolage Grotesque,system-ui,sans-serif" font-weight="800" font-size="'+z/3.4+'">'+m+'%</text></svg>'}
+function sq(j){return '<div class="sq" style="background:'+COL[j.id%7]+'">'+esc(j.c[0])+'</div>'}
+function card(j){return '<div class="card job row" tabindex="0" role="button" onclick="openJob('+j.id+')" onkeydown="if(event.key===\'Enter\')openJob('+j.id+')">'+sq(j)+'<div class="grow"><h3>'+esc(j.t)+'</h3><div class="mut">'+esc(j.c)+'</div><div class="mut">'+esc(j.l)+', '+j.m.toLowerCase()+'</div></div><div style="color:var(--pr)">'+ring(mt(j),56)+'</div></div>'}
+function sorted(){return J.slice().sort(function(a,b){return mt(b)-mt(a)})}
+function go(t){S.tab=t;render();window.scrollTo(0,0)}
+function openJob(id){S.job=id;S.cv=null;S.tab="job";render();window.scrollTo(0,0)}
+function toast(m){var e=document.createElement("div");e.className="toast";e.textContent=m;document.body.appendChild(e);setTimeout(function(){e.remove()},2600)}
+function saveP(){P.nome=$("f1").value;P.cargo=$("f2").value;P.anos=$("f3").value;P.cidade=$("f4").value;P.skills=$("f5").value.split(",").map(function(s){return s.trim()}).filter(Boolean);P.cv=$("f6").value;toast("Perfil salvo");go("home")}
+function pct(){return Math.round(100*[P.nome,P.cargo,P.anos,P.cidade,P.skills.length,P.cv].filter(Boolean).length/6)}
+function adapt(j){var h=j.k.filter(function(s){return P.skills.indexOf(s)>-1}),r=P.skills.filter(function(s){return h.indexOf(s)<0});return (P.nome||"Seu nome")+"\n"+j.t+", "+P.anos+" anos de experiência\n\nResumo\nProfissional com "+P.anos+" anos em logística, com foco em "+(h.length?h.join(", "):P.skills.slice(0,3).join(", "))+". Pronto para contribuir como "+j.t.toLowerCase()+" na "+j.c+".\n\nCompetências em destaque\n"+h.join(" • ")+"\n\nOutras competências\n"+r.join(" • ")+"\n\nExperiência\n"+P.cv}
+function list(){var q=S.q.toLowerCase(),L=sorted().filter(function(j){return (S.f==="todas"||(S.f==="direta"&&j.d)||(S.f==="remoto"&&j.m==="Remoto"))&&(j.t+j.c+j.l).toLowerCase().indexOf(q)>-1});return L.length?L.map(card).join(""):'<p class="mut">Nenhuma vaga encontrada. Tente outra busca ou filtro.</p>'}
+function upd(){$("lst").innerHTML=list()}
+function filt(f){S.f=f;render()}
+function apply(id,st){S.apps[id]=st;render()}
+function render(){var a=$("app"),t=S.tab,n=$("nav");
+if(t==="splash"){n.hidden=true;a.innerHTML='<div class="splash"><div class="logo">vagaz</div><p>A vaga certa, com o currículo certo, em um toque.</p><button onclick="go(\'perfil\')">Entrar com Google</button></div>';return}
+n.hidden=false;var cur=t==="job"?"vagas":t;n.innerHTML=[["home","Início"],["vagas","Buscar"],["apps","Candidaturas"],["perfil","Perfil"]].map(function(x){return '<button class="'+(cur===x[0]?"on":"")+'" onclick="go(\''+x[0]+'\')" aria-label="'+x[1]+'"><svg viewBox="0 0 24 24"><path d="'+IC[x[0]]+'"/></svg>'+x[1]+'</button>'}).join("");
+var top='<div class="top"><span class="logo">vagaz</span><span class="av">'+esc((P.nome||"V")[0].toUpperCase())+'</span></div>';
+if(t==="home"){var b=sorted()[0],na=Object.keys(S.apps).length;a.innerHTML=top+'<div class="hero"><div class="mut">Seu melhor match hoje</div><div class="row"><div class="grow"><h2>'+esc(b.t)+'</h2><div class="mut">'+esc(b.c)+', '+esc(b.l)+'</div></div>'+ring(mt(b),76)+'</div><button style="background:#fff;color:#1B1640" onclick="openJob('+b.id+')">Ver vaga</button></div><div class="stats"><div><b>'+J.length+'</b><span class="mut">vagas</span></div><div><b>'+na+'</b><span class="mut">candidaturas</span></div><div><b>'+pct()+'%</b><span class="mut">do perfil</span></div></div><h3 style="margin-bottom:10px">Mais compatíveis</h3>'+sorted().slice(0,3).map(card).join("")+'<button class="sec" onclick="go(\'vagas\')">Ver todas as vagas</button>';return}
+if(t==="vagas"){a.innerHTML=top+'<h2>Vagas</h2><input aria-label="Buscar vagas" placeholder="Cargo, empresa ou cidade" value="'+esc(S.q)+'" oninput="S.q=this.value;upd()" style="margin-top:12px"><div class="chips">'+[["todas","Todas"],["direta","Candidatura direta"],["remoto","Remoto"]].map(function(x){return '<button class="chip '+(S.f===x[0]?"on":"")+'" onclick="filt(\''+x[0]+'\')">'+x[1]+'</button>'}).join("")+'</div><div id="lst">'+list()+'</div>';return}
+if(t==="apps"){var ids=Object.keys(S.apps);a.innerHTML=top+'<h2>Candidaturas</h2><div style="height:12px"></div>'+(ids.length?ids.map(function(i){var j=J.filter(function(x){return x.id==i})[0],e=S.apps[i]==="enviada";return '<div class="card job row" onclick="openJob('+j.id+')">'+sq(j)+'<div class="grow"><h3>'+esc(j.t)+'</h3><div class="mut">'+esc(j.c)+'</div></div><span class="badge '+(e?"b1":"b2")+'">'+(e?"Enviada":"Pronta para enviar")+'</span></div>'}).join(""):'<div class="card"><h3>Nenhuma candidatura ainda</h3><p class="mut">Abra uma vaga, adapte o currículo e candidate-se. O andamento aparece aqui.</p><button onclick="go(\'vagas\')">Buscar vagas</button></div>');return}
+if(t==="perfil"){a.innerHTML=top+'<h2>Seu perfil</h2><div class="bar" role="img" aria-label="Perfil '+pct()+'% completo"><i style="width:'+pct()+'%"></i></div><span class="mut">'+pct()+'% completo</span><label for="f1">Nome</label><input id="f1" value="'+esc(P.nome)+'" placeholder="Seu nome"><label for="f2">Cargo desejado</label><input id="f2" value="'+esc(P.cargo)+'"><label for="f3">Anos de experiência</label><input id="f3" value="'+esc(P.anos)+'" inputmode="numeric"><label for="f4">Cidade</label><input id="f4" value="'+esc(P.cidade)+'"><label for="f5">Competências, separadas por vírgula</label><input id="f5" value="'+esc(P.skills.join(", "))+'"><label for="f6">Currículo, experiência</label><textarea id="f6">'+esc(P.cv)+'</textarea><button onclick="saveP()">Salvar perfil</button>';return}
+var j=J.filter(function(x){return x.id===S.job})[0],m=mt(j),st=S.apps[j.id];
+var tags=j.k.map(function(s){var h=P.skills.indexOf(s)>-1;return '<span class="tag '+(h?"y":"n")+'">'+(h?"Você tem: ":"Falta: ")+esc(s)+'</span>'}).join("");
+var h='<button class="back" onclick="go(\'vagas\')">Voltar</button><div class="row" style="margin-bottom:12px">'+sq(j)+'<div class="grow"><h2>'+esc(j.t)+'</h2><div class="mut">'+esc(j.c)+'</div></div></div><div class="hero row"><div class="grow"><b>Match com seu perfil</b><div class="mut">'+esc(j.l)+', '+j.m.toLowerCase()+'</div><div class="mut">'+esc(j.s)+'</div></div>'+ring(m,84)+'</div><div class="card"><p style="margin-top:0">'+esc(j.x)+'</p>'+tags+'</div>';
+if(S.cv===null){h+='<button onclick="S.cv=adapt(J.filter(function(x){return x.id==='+j.id+'})[0]);render()">Adaptar currículo para esta vaga</button>'}
+else{h+='<div class="card"><h3 style="margin-bottom:8px">Currículo adaptado</h3><textarea aria-label="Currículo adaptado" oninput="S.cv=this.value">'+esc(S.cv)+'</textarea></div>';
+if(st==="enviada"){h+='<div class="box"><b>Candidatura enviada.</b><div class="mut">Simulação: na versão real, o Vagaz envia o currículo adaptado à empresa.</div></div>'}
+else if(j.d){h+='<button onclick="apply('+j.id+',\'enviada\');toast(\'Candidatura enviada\')">Candidatar-se agora</button>'}
+else{h+='<div class="box">Esta empresa só recebe candidaturas no próprio site. Copie o currículo e finalize por lá.</div><button onclick="try{navigator.clipboard.writeText(S.cv)}catch(e){};apply('+j.id+',\'pronta\');toast(\'Currículo copiado\');openSrc('+j.id+')">Copiar currículo e abrir o site</button>'+(st==="pronta"?'<button class="sec" onclick="apply('+j.id+',\'enviada\')">Marcar como enviada</button>':'')}}
+a.innerHTML=h}
+var G={1:{e:"Lisboa",la:38.72,lo:-9.14,s:"LinkedIn"},2:{e:"SP São Paulo",la:-23.55,lo:-46.63,s:"Indeed"},3:{e:"Lisboa",la:38.72,lo:-9.14,s:"Randstad"},4:{e:"Porto",la:41.15,lo:-8.61,s:"OLX"},5:{e:"",s:"LinkedIn"},6:{e:"Setúbal",la:38.52,lo:-8.89,s:"Randstad"},7:{e:"",s:"Indeed"},8:{e:"Lisboa",la:38.76,lo:-9.23,s:"Indeed"},9:{e:"Lisboa",la:38.70,lo:-9.42,s:"LinkedIn"},10:{e:"SP São Paulo",la:-23.96,lo:-46.33,s:"Indeed"},11:{e:"SP São Paulo",la:-22.91,lo:-47.06,s:"OLX"},12:{e:"Braga",la:41.55,lo:-8.42,s:"LinkedIn"}};
+J.push({id:8,t:"Coordenador de armazém",c:"Tejo Logística",l:"Amadora",m:"Presencial",s:"€2.000 por mês",d:1,k:["WMS","Gestão de estoque","Liderança de equipes"],x:"Gestão diária do armazém, equipe de turno e controle de inventário."},{id:9,t:"Gerente de transportes",c:"Marés Express",l:"Cascais",m:"Presencial",s:"€3.000 por mês",d:0,k:["Roteirização","Transporte rodoviário","KPI","Liderança de equipes"],x:"Gestão da frota, rotas e contratos com transportadoras parceiras."},{id:10,t:"Analista de logística portuária",c:"Porto Seco",l:"Santos",m:"Presencial",s:"R$ 7.800 por mês",d:1,k:["Importação","Despacho aduaneiro","Excel","Inglês"],x:"Controle de containers, documentação e prazos de liberação."},{id:11,t:"Supervisor de transportes",c:"Via Campos",l:"Campinas",m:"Presencial",s:"R$ 8.200 por mês",d:0,k:["Transporte rodoviário","TMS","Liderança de equipes","KPI"],x:"Supervisão de motoristas, escalas e indicadores de entrega."},{id:12,t:"Planejador de supply chain",c:"Minho Retail",l:"Braga",m:"Híbrido",s:"€2.600 por mês",d:1,k:["Planejamento de demanda","Excel","KPI","SAP"],x:"Planejamento de reposição e análise de ruptura de estoque."});
+S.fc="";S.fe="";S.fr=50;S.fm="Todas";S.res=false;S.busy=false;
+function norm(s){return String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim()}
+function dist(a,b){var R=6371,r=Math.PI/180,x=(b.la-a.la)*r,y=(b.lo-a.lo)*r,h=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a.la*r)*Math.cos(b.la*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(h))}
+function res(){var o=null,fc=norm(S.fc),fe=norm(S.fe);J.forEach(function(j){if(!o&&fc&&norm(j.l)===fc&&G[j.id].la)o=G[j.id]});return sorted().filter(function(j){var g=G[j.id];j._d=null;if(S.fm!=="Todas"&&j.m!==S.fm)return false;if(j.m==="Remoto")return true;if(fe&&norm(g.e).indexOf(fe)<0)return false;if(fc){if(o&&S.fr>0){j._d=Math.round(dist(o,g));return j._d<=S.fr}if(norm(j.l)!==fc)return false;j._d=0}return true})}
+function card(j){var g=G[j.id],d=j._d;return '<div class="card job row" tabindex="0" role="button" onclick="openJob('+j.id+')" onkeydown="if(event.key===\'Enter\')openJob('+j.id+')">'+sq(j)+'<div class="grow"><h3>'+esc(j.t)+'</h3><div class="mut">'+esc(j.c)+'</div><div class="mut">'+(j.m==="Remoto"?"Remoto":esc(j.l)+(d>0?", a "+d+" km":""))+'</div><div class="mut">via '+g.s+'</div></div><div style="color:var(--pr)">'+ring(mt(j),56)+'</div></div>'}
+function doSearch(){S.busy=true;render();setTimeout(function(){S.busy=false;S.res=true;render()},1400)}
+function setM(m){S.fm=m;render()}
+function openSrc(id){var j=J.filter(function(x){return x.id===id})[0],s=G[id].s,q=encodeURIComponent(j.t+" "+j.c),u=s==="LinkedIn"?"https://www.linkedin.com/jobs/search/?keywords="+q:s==="Indeed"?"https://www.indeed.com/jobs?q="+q:"https://www.google.com/search?q="+q+"+"+s;try{window.open(u,"_blank")}catch(e){}}
+var _R=render;render=function(){_R();if(S.tab!=="vagas")return;var a=$("app"),top='<div class="top"><span class="logo">vagaz</span><span class="av">'+esc((P.nome||"V")[0].toUpperCase())+'</span></div>';
+if(S.busy){a.innerHTML=top+'<h2>Buscando vagas</h2><p class="mut">Consultando LinkedIn, Indeed, Randstad, OLX e outras fontes. Isso leva alguns segundos.</p><div class="bar"><i style="width:70%"></i></div>';return}
+if(S.res){var L=res(),fs={};L.forEach(function(j){fs[G[j.id].s]=1});a.innerHTML=top+'<h2>'+L.length+' vagas encontradas</h2><p class="mut">'+Object.keys(fs).length+' fontes'+(S.fc?', perto de '+esc(S.fc)+(S.fr>0?', raio de '+S.fr+' km':''):'')+(S.fe?', em '+esc(S.fe):'')+'</p><button class="sec" onclick="S.res=false;render()">Alterar filtros</button><div style="height:12px"></div>'+(L.length?L.map(card).join(""):'<p class="mut">Nenhuma vaga nesse raio. Aumente o raio ou mude os filtros.</p>');return}
+var cs={};J.forEach(function(j){if(G[j.id].la)cs[j.l]=1});
+a.innerHTML=top+'<h2>Buscar vagas</h2><p class="mut">Escolha onde você quer trabalhar. Não precisa digitar o nome da vaga.</p><label for="g1">Cidade</label><input id="g1" list="cid" value="'+esc(S.fc)+'" placeholder="Ex.: Lisboa" oninput="S.fc=this.value"><datalist id="cid">'+Object.keys(cs).map(function(c){return '<option value="'+esc(c)+'">'}).join("")+'</datalist><label for="g2">Estado ou distrito</label><input id="g2" value="'+esc(S.fe)+'" placeholder="Ex.: SP ou Porto" oninput="S.fe=this.value"><label for="g3">Raio a partir da cidade</label><select id="g3" onchange="S.fr=+this.value">'+[[0,"Só esta cidade"],[10,"10 km"],[25,"25 km"],[50,"50 km"],[100,"100 km"],[200,"200 km"]].map(function(o){return '<option value="'+o[0]+'"'+(S.fr===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join("")+'</select><label>Modalidade</label><div class="chips">'+["Todas","Presencial","Híbrido","Remoto"].map(function(m){return '<button class="chip '+(S.fm===m?"on":"")+'" onclick="setM(\''+m+'\')">'+m+'</button>'}).join("")+'</div><button onclick="doSearch()">Buscar vagas</button><p class="mut">Pesquisa em LinkedIn, Indeed, Randstad, OLX e outras fontes ao mesmo tempo.</p>'};
+render();
+</script>
+</body>
+</html>
